@@ -3,18 +3,15 @@ import mongoose from "mongoose";
 const reviewSchema = mongoose.Schema(
   {
     booking: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Booking",
+           type: String,
       required: true,
     },
     reviewer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+            type: String,
       required: true,
     },
     reviewee: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+           type: String,
       required: true,
     },
     rating: {

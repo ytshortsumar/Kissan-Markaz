@@ -9,6 +9,7 @@ import connectdb from './config/db.js';
 import http, { createServer } from "http";
 import url from 'url';
 import authRoute from "./routes/authRoutes.js";
+import authReview from "./routes/Review/Review.js";
 
 
 
@@ -25,6 +26,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api/auth" , authRoute);
+app.use("/api/review" , authReview);
 
 // Basic routes on the Express app
 app.get('/', (req, res) => res.send('Welcome to the Home Page!'));

@@ -3,13 +3,11 @@ import mongoose from "mongoose";
 const disputeSchema = mongoose.Schema(
   {
     booking: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Booking",
+      type: String,
       required: true,
     },
     raisedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
     description: {
@@ -23,7 +21,7 @@ const disputeSchema = mongoose.Schema(
     },
     resolution: String,
     resolvedBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
     },
     resolvedAt: Date,
