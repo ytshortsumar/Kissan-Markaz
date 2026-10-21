@@ -12,9 +12,6 @@ import authRoute from "./routes/Auth/authRoutes.js";
 import authReview from "./routes/Review/Review.js";
 
 
-
-
-
 const app = express();
 
 app.use(cors({

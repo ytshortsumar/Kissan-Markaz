@@ -1,7 +1,4 @@
 import Review from "../../models/Review.js";
-
-
-
 export const addReview = async (req, res) =>{
     try{
 
@@ -12,53 +9,6 @@ export const addReview = async (req, res) =>{
   let reviewee = req.body.reviewee; 
   let rating = req.body.rating;
   let comment = req.body.comment;
-
-    console.log("Inside the addReview function 01");
-
-
-
-        // if(booking === "")
-        // {
-        //      res.status(400).json({
-        //             message : "Booking is required"
-        //         });
-
-  
-        // }
-        // else  if(reviewer === "")
-        // {
-        //      res.status(400).json({
-        //             message : "Reviewer is required"
-        //         });
-            
-        // }
-        //    else  if(reviewee === "")
-        // {
-        //      res.status(400).json({
-        //             message : "Reviewee is required"
-        //         });
-            
-        // }
-        //    else  if(rating === "")
-        // {
-        //      res.status(400).json({
-        //             message : "Rating is required"
-        //         });
-            
-        // }
-
-        // else  if(rating === "")
-        // {
-        //      res.status(400).json({
-        //             message : "Comment is required"
-        //         });
-            
-        // }
-       
-
-
-
-
        
 
         let bookingExist = await Review.findOne({
@@ -71,8 +21,6 @@ export const addReview = async (req, res) =>{
         }
          
      
-
-
       let review_created =  await Review.create({
             booking : booking,
             reviewer : reviewer,
@@ -81,12 +29,9 @@ export const addReview = async (req, res) =>{
             comment : comment,
         });
        
-
         res.status(200).json({
             message : "Review Created Successfully"
         });
-
-
     }
     catch(error){
         console.log(JSON.stringify(error));
