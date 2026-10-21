@@ -8,7 +8,7 @@ dotenv.config();
 import connectdb from './config/db.js';
 import http, { createServer } from "http";
 import url from 'url';
-import authRoute from "./routes/authRoutes.js";
+import authRoute from "./routes/Auth/authRoutes.js";
 import authReview from "./routes/Review/Review.js";
 
 
