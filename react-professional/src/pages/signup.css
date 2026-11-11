@@ -134,6 +134,26 @@
   line-height: 1.5;
 }
 
+.signup-feedback {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.signup-feedback-error {
+  border: 1px solid #e8c5c2;
+  background: #fff5f4;
+  color: #9c3028;
+}
+
+.signup-feedback-success {
+  border: 1px solid #c5e1cd;
+  background: #f1faf3;
+  color: #216b38;
+}
+
 .signup-button {
   width: 100%;
   min-height: 47px;
@@ -158,9 +178,38 @@
   transform: translateY(1px);
 }
 
+.signup-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
 .signup-button:focus-visible {
   outline: 3px solid rgba(39, 131, 75, 0.35);
   outline-offset: 3px;
+}
+
+.signup-login-prompt {
+  margin: 22px 0 0;
+  color: #596c5e;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.signup-login-prompt a {
+  color: #216b38;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.signup-page a:focus-visible {
+  outline: 3px solid rgba(39, 131, 75, 0.35);
+  outline-offset: 3px;
+}
+
+.signup-page ::selection {
+  background: #cde2bb;
+  color: #183c28;
 }
 
 @media (max-width: 560px) {

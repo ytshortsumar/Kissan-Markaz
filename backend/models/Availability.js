@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const availabilitySchema = mongoose.Schema(
   {
     equipment: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Equipment",
       required: true,
     },
     startDate: {

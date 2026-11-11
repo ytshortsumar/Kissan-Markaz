@@ -1,6 +1,78 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router";
 import "./signup.css";
 
 export default function Signup() {
+  const location = useLocation();
+  const requestedRole = new URLSearchParams(location.search).get("role");
+  const selectedRole = ["farmer", "owner", "operator"].includes(requestedRole)
+    ? requestedRole
+    : "farmer";
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const latitude = String(formData.get("latitude") ?? "").trim();
+    const longitude = String(formData.get("longitude") ?? "").trim();
+
+    if (Boolean(latitude) !== Boolean(longitude)) {
+      setErrorMessage("Enter both latitude and longitude, or leave both blank.");
+      return;
+    }
+
+    const payload = {
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      password: String(formData.get("password") ?? ""),
+      phone: String(formData.get("phone") ?? "").trim(),
+      role: String(formData.get("role") ?? "farmer"),
+      address: String(formData.get("address") ?? "").trim(),
+      ...(latitude && longitude
+        ? {
+            location: {
+              type: "Point",
+              coordinates: [Number(longitude), Number(latitude)],
+            },
+          }
+        : {}),
+    };
+
+    setIsSubmitting(true);
+    try {
+      const apiBaseUrl = (
+        import.meta.env.VITE_API_URL || "http://localhost:5001"
+      ).replace(/\/$/, "");
+      const response = await fetch(`${apiBaseUrl}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Unable to create your account.");
+      }
+
+      setSuccessMessage(result.message || "Account created successfully.");
+      form.reset();
+    } catch (error) {
+      setErrorMessage(
+        error instanceof TypeError
+          ? "Could not connect to the server. Please try again."
+          : error.message || "Unable to create your account.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="signup-page">
       <section className="signup-container">
@@ -12,10 +84,7 @@ export default function Signup() {
           </p>
         </header>
 
-        <form
-          className="signup-form"
-          onSubmit={(event) => event.preventDefault()}
-        >
+        <form className="signup-form" onSubmit={handleSubmit} aria-busy={isSubmitting}>
           <div className="signup-form-grid">
             <div className="signup-field">
               <label htmlFor="name">Full Name</label>
@@ -66,7 +135,7 @@ export default function Signup() {
 
             <div className="signup-field signup-field-full">
               <label htmlFor="role">Account Role</label>
-              <select id="role" name="role" defaultValue="farmer" required>
+              <select id="role" name="role" defaultValue={selectedRole} required>
                 <option value="farmer">Farmer</option>
                 <option value="owner">Owner</option>
                 <option value="operator">Operator</option>
@@ -119,10 +188,24 @@ export default function Signup() {
             </div>
           </fieldset>
 
-          <button className="signup-button" type="submit">
-            Create Account
+          {errorMessage && (
+            <p className="signup-feedback signup-feedback-error" role="alert">
+              {errorMessage}
+            </p>
+          )}
+          {successMessage && (
+            <p className="signup-feedback signup-feedback-success" role="status">
+              {successMessage}
+            </p>
+          )}
+
+          <button className="signup-button" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Creating Account..." : "Create Account"}
           </button>
         </form>
+        <p className="signup-login-prompt">
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
       </section>
     </main>
   );
