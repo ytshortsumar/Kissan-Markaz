@@ -18,6 +18,8 @@ import maintenanceRecordRoute from "./routes/MaintenanceRecord/maintenanceRecord
 import auditLogRoute from "./routes/AuditLog/auditLogRoutes.js";
 import equipmentRoute from "./routes/Equipment/equipmentRoutes.js";
 import disputeRoute from "./routes/Dispute/disputeRoutes.js";
+import getUser from "./routes/Auth/userRoutes.js";
+
 
 const app = express();
 
@@ -46,6 +48,8 @@ app.use("/api/maintenance-record", maintenanceRecordRoute);
 app.use("/api/audit-log", auditLogRoute);
 app.use("/api/equipment", equipmentRoute);
 app.use("/api/dispute", disputeRoute);
+app.use("/api/getUser", getUser);
+
 
 // very basic method
 app.get("/", (req, res) => res.status(200).send("Welcome to the Home Page!"));
