@@ -3,19 +3,23 @@ import mongoose from "mongoose";
 const bookingSchema = mongoose.Schema(
   {
     farmer: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     owner: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     equipment: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Equipment",
       required: true,
     },
     operator: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Operator",
     },
     startDate: {
       type: Date,

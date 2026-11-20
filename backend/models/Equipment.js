@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const equipmentSchema = mongoose.Schema(
   {
     owner: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     name: {
@@ -19,6 +20,7 @@ const equipmentSchema = mongoose.Schema(
         "seeder",
         "sprayer",
         "water_pump",
+        "plow",
         "other",
       ],
       required: true,

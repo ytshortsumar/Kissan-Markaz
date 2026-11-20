@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { fileURLToPath } from "node:url";
 
 // Load env vars FIRST before any other imports that may use them
-dotenv.config();
+dotenv.config({ path: fileURLToPath(new URL("./.env", import.meta.url)) });
 
 import connectdb from "./config/db.js";
 import http, { createServer } from "http";
@@ -23,13 +24,12 @@ import getUser from "./routes/Auth/userRoutes.js";
 
 const app = express();
 
-app.use(
-  cors({
+app.use(cors({
     origin: [],
-    method: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
-);
+    method : ["GET", "POST", "PUT","DELETE"],
+    credentials :true
+}
+));
 app.use(express.json());
 
 // app.use((req,res,next)=>{
@@ -61,3 +61,6 @@ connectdb();
 server.listen(5001, () => {
   console.log("server is running on port 5001");
 });
+
+
+

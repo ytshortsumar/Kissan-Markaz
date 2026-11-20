@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const maintenanceRecordSchema = mongoose.Schema(
   {
     equipment: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Equipment",
       required: true,
     },
     description: {
@@ -20,7 +21,7 @@ const maintenanceRecordSchema = mongoose.Schema(
       default: 0,
     },
     performedBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     nextMaintenanceDate: Date,

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import User from "../../models/user.js";
+import User from "../../models/User.js";
 
 export const getUser = async (req, res) => {
   try {
@@ -34,3 +34,4 @@ export const getUser = async (req, res) => {
     });
   }
 };
+

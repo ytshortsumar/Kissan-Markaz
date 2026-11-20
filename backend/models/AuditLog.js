@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const auditLogSchema = mongoose.Schema(
   {
     performedBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     action: {
@@ -15,7 +16,7 @@ const auditLogSchema = mongoose.Schema(
       required: true,
     },
     targetId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
     },
     details: {
       type: String,
