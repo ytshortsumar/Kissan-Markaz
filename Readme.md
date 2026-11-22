@@ -1,0 +1,2 @@
+Student week task obliteration tech:
+Mam have assigned to create an Api so i made the get api for @equipment and i have commited it. To test this in your postman yu have the path this (GET /api/equipment/get_equipment).
